@@ -2,6 +2,7 @@ package io.yadnyesh.productservice.command.api.aggregate;
 
 import io.yadnyesh.productservice.command.api.commands.CreateProductCommand;
 import io.yadnyesh.productservice.command.api.events.ProductCreatedEvent;
+import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
@@ -21,6 +22,7 @@ public class ProductAggregate {
     public ProductAggregate() {
     }
 
+    @CommandHandler
     public ProductAggregate(CreateProductCommand createProductCommand) {
         ProductCreatedEvent productCreatedEvent = new ProductCreatedEvent();
         BeanUtils.copyProperties(createProductCommand, productCreatedEvent);
