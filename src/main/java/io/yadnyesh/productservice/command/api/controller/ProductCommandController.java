@@ -22,12 +22,14 @@ public class ProductCommandController {
 
     @PostMapping
     public String addProduct(@RequestBody ProductRestModel productRestModel) {
-        CreateProductCommand.builder()
+        CreateProductCommand createProductCommand =
+                CreateProductCommand.builder()
                 .productId(UUID.randomUUID().toString())
                 .name(productRestModel.getName())
                 .price(productRestModel.getPrice())
                 .quantity(productRestModel.getQuantity())
                 .build();
-        return "Product Added!";
+        String result = commandGateway.sendAndWait(createProductCommand);
+        return result;
     }
 }
